@@ -54,6 +54,26 @@
     .editorial-shadow {
       box-shadow: 0 32px 64px -12px rgba(45, 79, 30, 0.06);
     }
+
+    /* Mobile Drawer styles */
+    #mobile-menu {
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+
+    #mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    #menu-overlay {
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    #menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
   </style>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FS7MXBXK8"></script>
@@ -66,45 +86,76 @@
 </head>
 
 <body
-  class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
-  <div class="fixed inset-0 z-[60] bg-surface/95 backdrop-blur-lg hidden flex-col items-center justify-center gap-8"
+  class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container overflow-x-hidden">
+  <div class="fixed inset-0 z-[70] bg-on-surface/40 opacity-0" id="menu-overlay" onclick="toggleMenu(false)"></div>
+  <div class="fixed top-0 left-0 bottom-0 z-[80] w-3/4 max-w-sm bg-surface shadow-2xl flex flex-col p-6"
     id="mobile-menu">
-    <button class="absolute top-6 left-6" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
-      <span class="material-symbols-outlined text-3xl">close</span>
-    </button>
-    <a class="font-headline text-3xl italic text-primary" href="#variedades"
-      onclick="document.getElementById('mobile-menu').classList.add('hidden')">Quesos</a>
-    <a class="font-headline text-3xl italic text-primary" href="#complementos"
-      onclick="document.getElementById('mobile-menu').classList.add('hidden')">Complementos</a>
+    <div class="flex justify-between items-center mb-10">
+      <span class="font-headline italic text-primary font-bold text-lg">Menú</span>
+      <button onclick="toggleMenu(false)">
+        <span class="material-symbols-outlined text-3xl">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-6">
+      <a class="font-headline text-2xl italic text-primary border-b border-outline-variant/20 pb-2" href="#variedades"
+        onclick="toggleMenu(false)">Quesos</a>
+      <a class="font-headline text-2xl italic text-primary border-b border-outline-variant/20 pb-2" href="#complementos"
+        onclick="toggleMenu(false)">Complementos</a>
+    </nav>
+    <div class="mt-auto">
+      <p class="font-label uppercase tracking-[0.2em] text-[10px] text-secondary font-bold mb-4">Simplemente Natural</p>
+      <div class="flex gap-4">
+        <span class="material-symbols-outlined text-outline">language</span>
+        <span class="material-symbols-outlined text-outline">share</span>
+      </div>
+    </div>
   </div>
+  <script>
+    function toggleMenu(isOpen) {
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('menu-overlay');
+      if (isOpen) {
+        menu.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        menu.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+  </script>
   <header
     class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md flex items-center justify-between px-6 h-20 border-b border-outline-variant/20">
-    <button class="flex items-center" onclick="document.getElementById('mobile-menu').classList.remove('hidden')">
+    <button class="flex items-center" onclick="toggleMenu(true)">
       <span class="material-symbols-outlined text-primary text-3xl">menu</span>
     </button>
-    <a class="flex items-center gap-3" href="#">
-      <span class="font-headline italic text-primary font-bold text-lg tracking-tight">Simplemente Natural</span>
-    </a>
+    <a class="flex items-center gap-3" href="#"><img alt="Qosqo Manta Header Logo"
+        class="h-10 w-10 object-contain mix-blend-multiply"
+        src="https://lh3.googleusercontent.com/aida/ADBb0uh9EDRZhn2Y3FV2BJwKK94HCg-AyyiHYjVHIt6mdZCcFtnElb11BbA5J8IzzS_ZLA-jE4mppDUS9xsS3PPgG8maMQcYxxR4QYxo7oqZQQvogMpPQduKnMHRbNKHXiPZ0hWx60cJFwWLJEW0JvbWuvmLVdII8FH-ts097h1beTwxeGKG9h1UEt6e1I9Bt63H-aq5Z7-0SxRueY6tFVKS4fWmcT2ecgVs-s41_BXcX1Mun-MR-InydIctzwa6UolrJkPK8eag3rNrAg" /><span
+        class="font-headline italic text-primary font-bold text-lg tracking-tight">Simplemente Natural</span></a>
     <div class="w-10"></div>
   </header>
   <main class="pt-20">
-    <section class="px-6 py-12 flex flex-col items-center text-center">
+    <section class="px-6 py-12 md:py-20 flex flex-col items-center text-center max-w-4xl mx-auto">
       <a class="block mb-6" href="#">
-        <img alt="Qosqo Manta Logo" class="h-44 w-44 object-contain"
+        <img alt="Qosqo Manta Logo" class="h-32 w-32 md:h-44 md:w-44 object-contain mix-blend-multiply"
           src="https://lh3.googleusercontent.com/aida/ADBb0uh9EDRZhn2Y3FV2BJwKK94HCg-AyyiHYjVHIt6mdZCcFtnElb11BbA5J8IzzS_ZLA-jE4mppDUS9xsS3PPgG8maMQcYxxR4QYxo7oqZQQvogMpPQduKnMHRbNKHXiPZ0hWx60cJFwWLJEW0JvbWuvmLVdII8FH-ts097h1beTwxeGKG9h1UEt6e1I9Bt63H-aq5Z7-0SxRueY6tFVKS4fWmcT2ecgVs-s41_BXcX1Mun-MR-InydIctzwa6UolrJkPK8eag3rNrAg" />
       </a>
-      <h2 class="font-headline text-5xl italic text-primary leading-tight">Qosqo Manta</h2>
-      <p class="font-label uppercase tracking-[0.3em] text-[10px] mt-4 text-secondary font-bold">Simplemente Natural</p>
+      <h2 class="font-headline text-5xl md:text-7xl italic text-primary leading-tight">Qosqo Manta</h2>
+      <p class="font-label uppercase tracking-[0.3em] text-[10px] md:text-xs mt-4 text-secondary font-bold">Simplemente
+        Natural</p>
     </section>
-    <section class="px-6 py-8" id="variedades">
-      <div class="flex items-baseline justify-between mb-10">
-        <h3 class="font-headline text-2xl font-bold text-primary uppercase tracking-tight">Nuestras Variedades</h3>
+    <section class="max-w-7xl mx-auto px-6 py-8" id="variedades">
+      <div class="flex items-baseline justify-between mb-10 border-b border-outline-variant/30 pb-4">
+        <h3 class="font-headline text-2xl md:text-3xl font-bold text-primary uppercase tracking-tight">Nuestras
+          Variedades</h3>
         <span class="font-label text-[10px] uppercase tracking-widest text-outline">Artisan Collection</span>
       </div>
-      <div class="grid grid-cols-1 gap-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Andino" class="w-full h-full object-cover"
+            <img alt="Queso Andino" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0uiKq99bJD456LUlQBeEsREAqO6dci7SjENo5AC0fkQaX-b5Rbzv-vLWkmk6KMK86dKa4kfqUeL76e2xWvQS-pT-QQu7xWAIQGj8JFyfAjAMIddufVx8XJA_DNRaDBwFeVHGy60gEkE_HRbUj2usVaJeAkQ2PH7mMicNC1rWkI845aVZ78RFck2QNZdjWFYZETz6CxbGcUFU1VKeIDkhNbKWqd8ojQ8O1joSuRktrWqn8DMGTM99JiTbAnzbXFjLKmXxph5S_W66" />
           </div>
           <div class="flex justify-between items-start">
@@ -115,7 +166,7 @@
               <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: VINO BLANCO JOVEN
               </p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="Andino">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: ANDINO</span>
             </div>
@@ -123,7 +174,7 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Paria" class="w-full h-full object-cover"
+            <img alt="Queso Paria" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0ugxBv2nARsfZggokooN-lV0Hxpn3zYm8oTIAipb0gjuP3WniBsHFsN3GZhUm5bsbeNb_eA0DDLrsGUmX4pFd-U2TH1LxTCWL5ZLcAUQEWJ_v9RyrJqmOOAxBRWhMVd7fJJxbJsvmky14_M-ARnB-Os80v3kvQQRry-3_g8x8leD6gSUp1gH_n17ZzQzLAq5nFTS-PCqO9Vd7049ABAaLJSKRj3CgAUsTM1ZOhLSXDjeME23BG2Nr31FZv9WNzJgXkMRN5Ty8PUIKQ" />
           </div>
           <div class="flex justify-between items-start">
@@ -131,10 +182,9 @@
               <h4 class="font-headline text-2xl font-bold text-primary italic">Paria</h4>
               <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">El clásico andino. Sabor balanceado con un
                 toque de salinidad, ideal para el tradicional 'Queso con Choclo'.</p>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: INFUSIONES DE
-                HIERBAS ANDINAS</p>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: INFUSIONES</p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="Paria">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: PARIA</span>
             </div>
@@ -142,18 +192,17 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Gouda" class="w-full h-full object-cover"
+            <img alt="Queso Gouda" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0ujTw5m21jnnXeJMldLbIkRRnWp3nF9LVi9wbHbS49v46JIgixZ8TsLUHQwgylwTiPt5b4-MbqmooWFdMNAalDp1Uf14oJ3zEfqFIsBprkH1YssOIcLH1PKn1fkwLGjVptDwioZynVvCqaCTcTPDnXQMN4oS8T63ZGM7jZwJXcn3R3u_gYuHQKUphMOtDyGkSDWfwxqp4-LeTxqbmBOgeznqs373OECEEVBX6gt4v8mfVfpdyQDndcUXd9okPZcPWmFkHYzcM3DH9g" />
           </div>
           <div class="flex justify-between items-start">
             <div class="flex-grow pr-4">
               <h4 class="font-headline text-2xl font-bold text-primary italic">Gouda</h4>
               <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Textura elástica y sabor ligeramente dulce
-                con notas de nuez. Perfecto para tablas de quesos y fundidos.</p>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: CERVEZA ARTESANAL
-                ROJA</p>
+                con notas de nuez. Perfecto para tablas de quesos.</p>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: CERVEZA ROJA</p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="Gouda">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: GOUDA</span>
             </div>
@@ -161,18 +210,18 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Parmesano" class="w-full h-full object-cover"
+            <img alt="Queso Parmesano"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0uii2v6r8G6GR3yHEvyhj3vAyZF1bw1GNyS7rsV_hlrz_0GL1za2D35yOZv5ICyhwsPKDtojiEpWGX29vH9iNs4472t5JYaCYiP1iYsUnrZM1wNLFpa8K-8XmmugvO1WMgZqM6cUuV4g883KHNt9EBf0xOx8N3595HFz4OEWXflty4zTmj_WxY4ftNZ7PkU6Zw-6_kXcFN85GoYgyusPZ_X637ziwJoM4Ob3G6EoXpmwiUzINft6Yr1N11MQAdZ16G6TvkSYUzeV" />
           </div>
           <div class="flex justify-between items-start">
             <div class="flex-grow pr-4">
               <h4 class="font-headline text-2xl font-bold text-primary italic">Parmesano</h4>
               <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Maduración prolongada, textura granulosa y
-                sabor intenso. Esencial para pastas y ensaladas gourmet.</p>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: VINO TINTO
-                ROBUSTO</p>
+                sabor intenso. Esencial para pastas gourmet.</p>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: VINO TINTO</p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="Parmesano">S/. 52.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: PARMESANO</span>
             </div>
@@ -180,7 +229,7 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Edam" class="w-full h-full object-cover"
+            <img alt="Queso Edam" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0uhuY-y9-3D9wqpkOlxpIQZm0xYDR-Lg_3cq20lCxt8kiwvDp5Z6mBKMLmNvJiv98WD7roGZuA_3n21w3NWZiIBQ3c8aK_arLrc-fL5ucc8BQO5AaXgh7JUhOJATLjEmcoktkYYP6eqHfEAgPzgYTma-iVl4tW54c1gHfaZIqPmckVoujIeWudviNvZRkq7MHAP5sWRFcVoGXsZ2eEFLA5Y7HI2-Wscpy1cScMKwzHGzbEsTeJmYEiwMO0JoQrwlV0X5uVFbeJmv" />
           </div>
           <div class="flex justify-between items-start">
@@ -191,7 +240,7 @@
               <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: FRUTAS FRESCAS
               </p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="Edam">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: EDAM</span>
             </div>
@@ -199,18 +248,18 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Mozzarella" class="w-full h-full object-cover"
+            <img alt="Queso Mozzarella"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0ugW-BBe_D1khyKJQ7k47hzw9XSSIyXqCpiys2pwQgwbXR6te-cNM8ygv2f5gejCpXed7Hkv5tyQWInnM5AmbEiygJrOuU_WMIUoMDqZf_ExY-XUUyALIvWTJk3iYDqqMaT-pgEYWVzkJTqTa__FtZW7UmzYLdpyA-Nuidj2YTk3AbubZm6iPZyjlqZQKxmEsFnMDR0DZQWFaVUvzSmAgy-jJXA24DtkGXKuvpuaYnhtQXIzAikSOeAnb_Uthu22tyv6N58x0tSU" />
           </div>
           <div class="flex justify-between items-start">
             <div class="flex-grow pr-4">
               <h4 class="font-headline text-2xl font-bold text-primary italic">Mozzarella</h4>
               <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Frescura incomparable y excelente
-                capacidad de fundido. Indispensable para pizzas y ensaladas caprese.</p>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: VINO ROSADO SECO
-              </p>
+                capacidad de fundido. Indispensable para pizzas.</p>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: VINO ROSADO</p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="Mozzarella">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: MOZZARELLA</span>
             </div>
@@ -218,18 +267,19 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Andino Orégano" class="w-full h-full object-cover"
+            <img alt="Queso Andino Orégano"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0ujMPszqIncHt-L3REflAfi52SlMGtZPomDwbaWa1eoZDN2TFTiS2H40dAeHd2AVXdsbpNctfM3ZzDosoNEGR8MLgwmY3oZXMkpQdLawhDDo_rY7gvONHnXmM0wJAJechMkOutVTdQsYPUqMPIXohPpbD4m3tXyxFrKPfMeR4G_ZFnToGg15av8Y55LiudWWSvVumE3l8Ugy1ZLaX-mmrTVWGtIfxT4bk7OBpJXG0DdlVfidM9WQVB-pdF3t8wGjrmyc5eb8NYRs" />
           </div>
           <div class="flex justify-between items-start">
             <div class="flex-grow pr-4">
               <h4 class="font-headline text-2xl font-bold text-primary italic">Andino Orégano</h4>
               <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Base de queso andino aromatizado con finas
-                hojas de orégano de la región, aportando un aroma silvestre único.</p>
+                hojas de orégano regional.</p>
               <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: GALLETAS DE AGUA
-                Y FRUTOS SECOS</p>
+              </p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="oregano">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: OREGANO</span>
             </div>
@@ -237,18 +287,18 @@
         </article>
         <article class="flex flex-col gap-5">
           <div class="aspect-square bg-surface-container-low overflow-hidden rounded-xl">
-            <img alt="Queso Tipo Suizo" class="w-full h-full object-cover"
+            <img alt="Queso Tipo Suizo"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               src="https://lh3.googleusercontent.com/aida/ADBb0uhROKpCN_kUp72ONyzIaczDnts2p7u_SWzBKlv4I6s_Pvu5RB066CyVwsBNekwIBm0uYtkV7ltvuoAa_H0PmLq2_axUioFdVw13FQV6ooBbkQoLozi8b_5o8EIhgY1k-rhXZBWtzim-AZ2W9i7r7rgIYUGMRF3QF16SeOxyb_zaFgHOxglWpf79KIqSpfGcKMpyVbhdpV_50hWY77mmMFoIQmfqjssts7yJMBo-oa86vw2Osasp0b5QSmA73kTnxC9xy7UG1yWQTg" />
           </div>
           <div class="flex justify-between items-start">
             <div class="flex-grow pr-4">
               <h4 class="font-headline text-2xl font-bold text-primary italic">Tipo Suizo</h4>
-              <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Sabor complejo con agujeros naturales de
-                maduración. Una joya de la quesería artesanal.</p>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: FRUTOS
-                DESHIDRATADOS</p>
+              <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Sabor complejo con agujeros naturales. Una
+                joya artesanal.</p>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-secondary mt-3">MARIDAJE: FRUTOS SECOS</p>
             </div>
-            <div class="text-right flex flex-col items-end">
+            <div class="text-right flex flex-col items-end shrink-0">
               <span class="font-headline text-2xl text-primary font-bold" data-tag="suizo">S/. 42.00</span>
               <span class="font-label text-[9px] uppercase tracking-widest text-outline mt-1">TAG: SUIZO</span>
             </div>
@@ -256,58 +306,68 @@
         </article>
       </div>
     </section>
-    <section class="bg-surface-container-low px-6 py-16 mt-12 mb-0" id="complementos">
-      <h3 class="font-headline text-3xl font-bold text-primary mb-12 text-center italic">Complementos Artesanales</h3>
-      <div class="space-y-20">
-        <div class="flex flex-col gap-6">
-          <img alt="Mermeladas Artesanales" class="w-full h-72 object-cover rounded-xl shadow-md"
-            src="https://lh3.googleusercontent.com/aida/ADBb0ugGW6IsgfDpd7gO_YkvTfbi5nJ9L9zQKlB2axADGTn-eif0jw72JlvnP2NqhIxbo4GkfWKBjfrC7BL1x_Hh2U5tkH8ihI9vdU3GVPfQtmWjCCm-CY6uHk_4K_GQ-DLxhM451hdI0riaMulPrxX2J8ESORbTEQqyhWaoYXCosvxvlW4fLUgFguILzOJpcvNyuIku61H-qQuGKNYcTsnT-RpTDz9K9bWAti32ncAVSpOABAA2yjuJXiSauR_l1ecdTuXtjB2YTHmY" />
-          <div>
-            <h4 class="font-headline text-2xl text-primary mb-2 font-bold italic">Mermeladas Artesanales</h4>
-            <p class="text-on-surface-variant text-sm mb-4">Elaboradas con frutos de estación cuidadosamente
-              seleccionados para acompañar tus quesos.</p>
-            <div class="flex justify-between items-center border-t border-outline-variant/30 pt-4">
-              <span class="font-label text-sm text-on-surface-variant">Frasco 500g</span>
-              <span class="font-headline text-xl text-secondary font-bold" data-tag="mermelada">S/. 23.00</span>
+    <section class="bg-surface-container-low py-20 mt-12" id="complementos">
+      <div class="max-w-7xl mx-auto px-6">
+        <h3 class="font-headline text-3xl md:text-4xl font-bold text-primary mb-16 text-center italic">Complementos
+          Artesanales</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div class="flex flex-col gap-6 bg-surface p-4 rounded-2xl shadow-sm border border-outline-variant/20">
+            <div class="aspect-video overflow-hidden rounded-xl">
+              <img alt="Mermeladas Artesanales" class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida/ADBb0ugGW6IsgfDpd7gO_YkvTfbi5nJ9L9zQKlB2axADGTn-eif0jw72JlvnP2NqhIxbo4GkfWKBjfrC7BL1x_Hh2U5tkH8ihI9vdU3GVPfQtmWjCCm-CY6uHk_4K_GQ-DLxhM451hdI0riaMulPrxX2J8ESORbTEQqyhWaoYXCosvxvlW4fLUgFguILzOJpcvNyuIku61H-qQuGKNYcTsnT-RpTDz9K9bWAti32ncAVSpOABAA2yjuJXiSauR_l1ecdTuXtjB2YTHmY" />
             </div>
-            <span class="mt-2 block font-label text-[9px] uppercase tracking-widest text-outline">TAG: MERMELADA</span>
-          </div>
-        </div>
-        <div class="flex flex-col gap-6">
-          <img alt="Mantequillas Don Ramón" class="w-full h-72 object-cover rounded-xl shadow-md"
-            src="https://lh3.googleusercontent.com/aida/ADBb0uiY8r39eG7srHTc8tw4EiaTNrlLr94rvWyXhimqCgu5G4TaqSUa5zATPUEyF3jzFKH4S-XdNIYGwIZN8E5MdT4Ic8lySK6tfc5qDNyInEJOwkjHgjDWZ4r6j14t3mQZI2kAYU2a0wl80ZhmGrRZRHqDaFgzgsnBgEnyulWM0bJMMhStEBhHyfgFQHQvMbLwF5g3-ZrW0oxbiwQsEn6YLrXpzrq2GGA-IluCwes05lQSmtqT9mqxRMOR6T5epgwsfGumnt81GBmQzw" />
-          <div>
-            <h4 class="font-headline text-2xl text-primary mb-2 font-bold italic">Mantequillas "DON RAMÓN"</h4>
-            <p class="text-on-surface-variant text-sm mb-4">Pura crema de leche pasteurizada, con el sabor auténtico del
-              campo.</p>
-            <div class="space-y-4 border-t border-outline-variant/30 pt-4">
-              <div class="flex justify-between items-center">
-                <span class="font-label text-sm text-on-surface-variant">Pote 400g</span>
-                <span class="font-headline text-xl text-secondary font-bold" data-tag="400g">S/. 24.00</span>
+            <div>
+              <h4 class="font-headline text-2xl text-primary mb-2 font-bold italic">Mermeladas Artesanales</h4>
+              <p class="text-on-surface-variant text-sm mb-4">Elaboradas con frutos de estación para acompañar tus
+                quesos.</p>
+              <div class="flex justify-between items-center border-t border-outline-variant/30 pt-4">
+                <span class="font-label text-sm text-on-surface-variant">Frasco 500g</span>
+                <span class="font-headline text-xl text-secondary font-bold" data-tag="mermelada">S/. 23.00</span>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="font-label text-sm text-on-surface-variant">Pote 250g</span>
-                <span class="font-headline text-xl text-secondary font-bold" data-tag="250g">S/. 14.00</span>
-              </div>
-            </div>
-            <div class="mt-4 flex gap-4">
-              <span class="font-label text-[9px] uppercase tracking-widest text-outline">TAG: 400G</span>
-              <span class="font-label text-[9px] uppercase tracking-widest text-outline">TAG: 250G</span>
+              <span class="mt-2 block font-label text-[9px] uppercase tracking-widest text-outline">TAG:
+                MERMELADA</span>
             </div>
           </div>
-        </div>
-        <div class="flex flex-col gap-6">
-          <img alt="Manjar Blanco Don Ramón" class="w-full h-72 object-cover rounded-xl shadow-md"
-            src="https://lh3.googleusercontent.com/aida/ADBb0ujIMb6Vn3T1uzhNoo_IsRm_1arv1gAO7p528KI241clABj8EItQ5tghlpgBfyiVjaQYSo3bbLZ2DW_Rt0co7n94y4kwboLpkayQoYqT3eFnM4y6lEDU-ipR0j-8l79W8Pm87c1gkCVbDlKy4Lhw4sIeXlbv7lN2R0OmHTXj1yG1BhYW6jlt2kwrQvqWqSKmQuvcyhjwVbxalREI90pNnmh7CdFaB3nClGlpZZX0LCewJEorfQDbUwI3-Tq2AIIb7x1fhHZkJbKb" />
-          <div>
-            <h4 class="font-headline text-2xl text-primary mb-2 font-bold italic">Manjar Blanco "DON RAMÓN"</h4>
-            <p class="text-on-surface-variant text-sm mb-4">Receta tradicional premium, cremosa y con el dulzor
-              perfecto.</p>
-            <div class="flex justify-between items-center border-t border-outline-variant/30 pt-4">
-              <span class="font-label text-sm text-on-surface-variant">Pote 500g</span>
-              <span class="font-headline text-xl text-secondary font-bold" data-tag="Manjar">S/. 18.00</span>
+          <div class="flex flex-col gap-6 bg-surface p-4 rounded-2xl shadow-sm border border-outline-variant/20">
+            <div class="aspect-video overflow-hidden rounded-xl">
+              <img alt="Mantequillas Don Ramón" class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida/ADBb0uiY8r39eG7srHTc8tw4EiaTNrlLr94rvWyXhimqCgu5G4TaqSUa5zATPUEyF3jzFKH4S-XdNIYGwIZN8E5MdT4Ic8lySK6tfc5qDNyInEJOwkjHgjDWZ4r6j14t3mQZI2kAYU2a0wl80ZhmGrRZRHqDaFgzgsnBgEnyulWM0bJMMhStEBhHyfgFQHQvMbLwF5g3-ZrW0oxbiwQsEn6YLrXpzrq2GGA-IluCwes05lQSmtqT9mqxRMOR6T5epgwsfGumnt81GBmQzw" />
             </div>
-            <span class="mt-2 block font-label text-[9px] uppercase tracking-widest text-outline">TAG: MANJAR</span>
+            <div>
+              <h4 class="font-headline text-2xl text-primary mb-2 font-bold italic">Mantequillas "DON RAMÓN"</h4>
+              <p class="text-on-surface-variant text-sm mb-4">Pura crema de leche pasteurizada, con el sabor auténtico
+                del campo.</p>
+              <div class="space-y-3 border-t border-outline-variant/30 pt-4">
+                <div class="flex justify-between items-center">
+                  <span class="font-label text-sm text-on-surface-variant">Pote 400g</span>
+                  <span class="font-headline text-lg text-secondary font-bold" data-tag="400g">S/. 24.00</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="font-label text-sm text-on-surface-variant">Pote 250g</span>
+                  <span class="font-headline text-lg text-secondary font-bold" data-tag="250g">S/. 14.00</span>
+                </div>
+              </div>
+              <div class="mt-4 flex gap-2">
+                <span class="font-label text-[9px] uppercase tracking-widest text-outline">TAG: 400G</span>
+                <span class="font-label text-[9px] uppercase tracking-widest text-outline">TAG: 250G</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 bg-surface p-4 rounded-2xl shadow-sm border border-outline-variant/20">
+            <div class="aspect-video overflow-hidden rounded-xl">
+              <img alt="Manjar Blanco Don Ramón" class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida/ADBb0ujIMb6Vn3T1uzhNoo_IsRm_1arv1gAO7p528KI241clABj8EItQ5tghlpgBfyiVjaQYSo3bbLZ2DW_Rt0co7n94y4kwboLpkayQoYqT3eFnM4y6lEDU-ipR0j-8l79W8Pm87c1gkCVbDlKy4Lhw4sIeXlbv7lN2R0OmHTXj1yG1BhYW6jlt2kwrQvqWqSKmQuvcyhjwVbxalREI90pNnmh7CdFaB3nClGlpZZX0LCewJEorfQDbUwI3-Tq2AIIb7x1fhHZkJbKb" />
+            </div>
+            <div>
+              <h4 class="font-headline text-2xl text-primary mb-2 font-bold italic">Manjar Blanco "DON RAMÓN"</h4>
+              <p class="text-on-surface-variant text-sm mb-4">Receta tradicional premium, cremosa y con el dulzor
+                perfecto.</p>
+              <div class="flex justify-between items-center border-t border-outline-variant/30 pt-4">
+                <span class="font-label text-sm text-on-surface-variant">Pote 500g</span>
+                <span class="font-headline text-xl text-secondary font-bold" data-tag="Manjar">S/. 18.00</span>
+              </div>
+              <span class="mt-2 block font-label text-[9px] uppercase tracking-widest text-outline">TAG: MANJAR</span>
+            </div>
           </div>
         </div>
       </div>
@@ -320,13 +380,14 @@
     title="Consultar por WhatsApp">
     <span class="material-symbols-outlined text-3xl">chat</span>
   </a>
-  <footer class="bg-primary w-full py-12 flex flex-col items-center justify-center gap-6">
-    <a class="hover:opacity-80 transition-opacity" href="#">
-      <img alt="Logo Footer" class="h-28 w-28 object-contain"
-        src="https://lh3.googleusercontent.com/aida/ADBb0uh9EDRZhn2Y3FV2BJwKK94HCg-AyyiHYjVHIt6mdZCcFtnElb11BbA5J8IzzS_ZLA-jE4mppDUS9xsS3PPgG8maMQcYxxR4QYxo7oqZQQvogMpPQduKnMHRbNKHXiPZ0hWx60cJFwWLJEW0JvbWuvmLVdII8FH-ts097h1beTwxeGKG9h1UEt6e1I9Bt63H-aq5Z7-0SxRueY6tFVKS4fWmcT2ecgVs-s41_BXcX1Mun-MR-InydIctzwa6UolrJkPK8eag3rNrAg" />
+  <footer class="bg-primary w-full py-16 flex flex-col items-center justify-center gap-8 text-center">
+    <a class="transition-opacity block" href="#">
+      <img alt="Logo Footer" class="mx-auto object-contain"
+        src="https://lh3.googleusercontent.com/aida/ADBb0uh9EDRZhn2Y3FV2BJwKK94HCg-AyyiHYjVHIt6mdZCcFtnElb11BbA5J8IzzS_ZLA-jE4mppDUS9xsS3PPgG8maMQcYxxR4QYxo7oqZQQvogMpPQduKnMHRbNKHXiPZ0hWx60cJFwWLJEW0JvbWuvmLVdII8FH-ts097h1beTwxeGKG9h1UEt6e1I9Bt63H-aq5Z7-0SxRueY6tFVKS4fWmcT2ecgVs-s41_BXcX1Mun-MR-InydIctzwa6UolrJkPK8eag3rNrAg"
+        style="width: 120px; height: auto;" />
     </a>
     <p class="font-headline italic text-on-primary-container text-2xl">Simplemente Natural</p>
-    <nav class="flex flex-col items-center gap-4">
+    <nav class="flex flex-col items-center gap-6">
       <a class="font-label text-xs uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors"
         href="#">Volver al Inicio</a>
       <div class="flex gap-8">
@@ -343,6 +404,7 @@
   <script>
     async function updatePrices() {
       const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9_8zJPMq6dR2qJG7Gk5cFBLKrDMwIb5gcEk1E1Bi5O_t2Df_z5hXDXkO-o6r-UMibyvrL2B8Dnj6y/pub?gid=0&single=true&output=csv';
+
       if (!csvUrl) return;
 
       try {
